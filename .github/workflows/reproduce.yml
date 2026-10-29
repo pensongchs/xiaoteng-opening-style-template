@@ -1,0 +1,51 @@
+name: Mac 与 Windows 复刻验证
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
+    defaults:
+      run:
+        shell: bash
+        working-directory: skills/xiaoteng-opening-style-template/assets/workspace
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: 新建中文工作路径
+        working-directory: .
+        run: node skills/xiaoteng-opening-style-template/scripts/create-project.mjs "学员 验证/片头工程"
+      - name: 自动准备系统依赖、背景与浏览器
+        run: node scripts/setup.cjs
+        working-directory: 学员 验证/片头工程
+      - name: 复用已有运行组
+        run: node scripts/setup.cjs
+        working-directory: 学员 验证/片头工程
+      - name: 类型与跨平台脚本检查
+        run: |
+          npm run check
+          npm test
+        working-directory: 学员 验证/片头工程
+      - name: 完整渲染和媒体验证
+        run: |
+          npm run render
+          npm run verify
+          npm run still -- 103 "预览图/示例中段.png"
+        working-directory: 学员 验证/片头工程
+      - uses: actions/upload-artifact@v4
+        with:
+          name: opening-${{ matrix.os }}
+          path: |
+            学员 验证/片头工程/renders/示例片头.mp4
+            学员 验证/片头工程/预览图/示例中段.png
+            学员 验证/片头工程/检查结果/媒体检查.json
+          if-no-files-found: error
