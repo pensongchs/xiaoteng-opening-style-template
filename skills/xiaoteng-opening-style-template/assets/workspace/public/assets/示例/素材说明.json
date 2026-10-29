@@ -1,0 +1,15 @@
+{
+  "generator": "内置ImageGen",
+  "prompts": ["Use case photorealistic-natural. Make a photographic transparent PNG cutout for a Chinese real-estate video template sample. Two or three completed modern luxury Chinese residential towers in a compact vertical cluster, full roofs and full bases, clear blue glass floor-to-ceiling windows, broad private balconies, warm bronze thin mullions, restrained plants on terraces, daylight architectural photography, actual large buildings not a model. Natural blue and warm cream colours. Small attached landscaped footing only. Portrait silhouette with generous transparent margins. No sky, no surrounding background, no horizon, no text, no logo, no people, no white outline. Genuine transparent alpha background. Generic illustrative housing, not a real identified project.","Use case photorealistic-natural. Make a photographic transparent PNG cutout for a Chinese real-estate video template sample. A completed well-maintained Chinese resale apartment community, coherent 7-to-9-story apartment complex with broad horizontal silhouette, warm terracotta brick-red exterior, cream window frames, ordinary balconies, deep green mature trees and shrubs tightly attached at base, natural daylight architectural photography. Whole roofs and bases visible with transparent breathing room. Warm red masonry and green foliage must contrast distinctly from a tall blue-glass tower. True transparent alpha background. No sky, no distant ground, no rectangle, no text, no logo, no people, no white outline. Generic illustrative housing, not a real identified project."],
+  "nature": "两张图均为内置ImageGen生成的房产类别示意，不代表真实楼盘、住户、品质或交易事实",
+  "files": [
+    {
+      "file": "成熟社区住宅_透明.png",
+      "sha256": "9d75e751a6f9c9d40d4e4918fa56c1d437481d20c4f633b28c6150246d9f74e7"
+    },
+    {
+      "file": "现代住宅_透明.png",
+      "sha256": "d3384f8ed0fde323dbb8cd1860019eec03da282ec95919693ba088fa844e99aa"
+    }
+  ]
+}

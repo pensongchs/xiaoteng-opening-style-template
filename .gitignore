@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+**/.runtime/
+**/src/AsciiGradientBackground.jsx
+**/src/AsciiGradientBackground.css
+**/renders/
+**/检查结果/
+**/*.log
+/预览图/学员示例/
