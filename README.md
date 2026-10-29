@@ -72,6 +72,8 @@ Mac可运行`start.command`，Windows可运行`start.cmd`。缺少Node时启动�
 
 仓库已启用[三平台复刻验证](https://github.com/pensongchs/xiaoteng-opening-style-template/actions/workflows/reproduce.yml)：覆盖Apple芯片Mac、Intel Mac和Windows x64，在含中文与空格的新目录中准备环境、重复准备以验证依赖复用、检查代码、完整渲染示例并检查184帧、时长、解码和黑帧。具体结果以对应提交的工作流状态为准。
 
+三平台完整示例均已[验证通过](https://github.com/pensongchs/xiaoteng-opening-style-template/actions/runs/40873016547)，对应运行代码提交为`1ebdfdf5d67299b9b62bd2714a08589e3df8c25d`。运行结果中可下载各平台的示例MP4、中段图片和媒体检查报告。
+
 桌面默认使用ANGLE渲染；CI云端无显卡环境自动使用swangle兼容渲染并发1，保留相同分辨率、帧率和背景着色器。Windows ARM兼容环境未纳入这组验证。媒体检查不替代视觉审看；纯画面示例不包含原声音画同步验证。
 
 详细说明：[运行与复刻](skills/xiaoteng-opening-style-template/references/运行与复刻.md)。风格规则：[DESIGN.md](skills/xiaoteng-opening-style-template/assets/workspace/DESIGN.md)。
