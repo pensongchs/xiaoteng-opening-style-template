@@ -26,7 +26,15 @@ function platformError(info = systemInfo()) {
   }
   return '本模板面向 macOS 和 Windows，当前系统尚未验证。';
 }
-function concurrency(info = systemInfo()) {
+function glBackend(env = process.env) {
+  if (env.XIAOTENG_GL) {
+    if (!['angle', 'swangle'].includes(env.XIAOTENG_GL)) throw Error('XIAOTENG_GL只支持angle或swangle');
+    return env.XIAOTENG_GL;
+  }
+  return env.CI === 'true' || env.GITHUB_ACTIONS === 'true' ? 'swangle' : 'angle';
+}
+function concurrency(info = systemInfo(), env = process.env) {
+  if (glBackend(env) === 'swangle') return 1;
   return info.cpuThreads < 4 || info.totalMemoryGB <= 8 || info.freeMemoryGB < 3 ? 1 : 2;
 }
 function fingerprint(pkg, lock, info = systemInfo()) {
@@ -110,4 +118,4 @@ function browserPath() {
   if (!fs.existsSync(record.path)) throw Error('渲染浏览器不存在，请重新运行 npm run setup');
   return record.path;
 }
-module.exports = {root, sharedHome, systemInfo, platformError, concurrency, fingerprint, run, npmCi, dependencyStatus, prepareDependencies, resolveTool, mediaEnv, browserPath};
+module.exports = {root, sharedHome, systemInfo, platformError, glBackend, concurrency, fingerprint, run, npmCi, dependencyStatus, prepareDependencies, resolveTool, mediaEnv, browserPath};

@@ -21,7 +21,7 @@
 
 以useCurrentFrame/useVideoConfig确定时间，通过renderTime传入适配组件；背景时间预置3秒，intro关闭，使首帧已有完整字符渐变。不使用网页时钟、CSS动画或真实鼠标驱动，mouseInteraction关闭、clickEffect为none。背景运动与亮度服从主体，不用静态截图或近似纹理替代原始效果。
 
-039使用原生WebGL2，运行依赖复用工程共享运行组，沿用--gl=angle与--concurrency=2。AsciiGradientBackground.jsx保留7段原版GLSL着色器正文；每帧等待GPU绘制完成再截图，预挂载尺寸为0时使用Composition尺寸。字符字体沿用原版Geist Mono优先、系统等宽字体回退的字体栈，不额外下载字体。039由准备脚本从官方固定提交下载并在本机适配，不随仓库再分发源码。
+039使用原生WebGL2，运行依赖复用工程共享运行组，桌面默认使用angle；CI云端无显卡环境自动使用swangle兼容渲染并发1，其余环境按内存自动选择并发1或2。画面规格与原始着色器保持一致。AsciiGradientBackground.jsx保留7段原版GLSL着色器正文；每帧等待GPU绘制完成再截图，预挂载尺寸为0时使用Composition尺寸。字符字体沿用原版Geist Mono优先、系统等宽字体回退的字体栈，不额外下载字体。039由准备脚本从官方固定提交下载并在本机适配，不随仓库再分发源码。
 
 Opening未传backgroundId时使用默认039；用户当期明确指定其他背景时使用对应现有适配。背景试片使用包含背景编号的独立输出路径，确认后更新正式参照及当前有效说明。
 

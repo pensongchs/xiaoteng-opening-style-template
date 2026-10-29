@@ -1,7 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const cp = require('node:child_process');
-const {root, systemInfo, platformError, dependencyStatus, resolveTool, mediaEnv, browserPath, concurrency} = require('./runtime.cjs');
+const {root, systemInfo, platformError, dependencyStatus, resolveTool, mediaEnv, browserPath, glBackend, concurrency} = require('./runtime.cjs');
 function doctor() {
   const info = systemInfo(), errors = [];
   const systemError = platformError(info);
@@ -19,7 +19,7 @@ function doctor() {
     try {if (cp.spawnSync(browserPath(), ['--version'], {stdio: 'ignore', windowsHide: true}).status !== 0) throw Error();}
     catch {errors.push('渲染浏览器不可运行');}
   }
-  console.log(JSON.stringify({...info, renderConcurrency: concurrency(info), errors}, null, 2));
+  console.log(JSON.stringify({...info, gl: glBackend(), renderConcurrency: concurrency(info), errors}, null, 2));
   if (errors.length) throw Error('环境检查未通过；运行 npm run setup 后重试。');
   console.log('运行环境检查通过。请继续运行 npm run check 和示例渲染验证。');
 }

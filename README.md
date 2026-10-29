@@ -70,8 +70,8 @@ Mac可运行`start.command`，Windows可运行`start.cmd`。缺少Node时启动�
 
 ## 复刻验证
 
-Apple芯片Mac已完成本机环境准备、中文空格路径复用、完整示例渲染、184帧解码与黑帧检查，并检查首尾及切换关键画面。Intel Mac和Windows x64的运行逻辑已提供，远程整片验收等待仓库的workflow发布权限确认。
+仓库已启用[三平台复刻验证](https://github.com/pensongchs/xiaoteng-opening-style-template/actions/workflows/reproduce.yml)：覆盖Apple芯片Mac、Intel Mac和Windows x64，在含中文与空格的新目录中准备环境、重复准备以验证依赖复用、检查代码、完整渲染示例并检查184帧、时长、解码和黑帧。具体结果以对应提交的工作流状态为准。
 
-远程验证配置会在Apple芯片Mac、Intel Mac和Windows x64上，在含中文与空格的新目录中准备环境、重复准备以验证复用、检查代码、完整渲染示例并检查帧数/时长/解码/黑帧。未完成的系统不视为已经实测通过。Windows ARM兼容环境未纳入这组验证。媒体检查不替代视觉审看；纯画面示例不包含原声音画同步验证。
+桌面默认使用ANGLE渲染；CI云端无显卡环境自动使用swangle兼容渲染并发1，保留相同分辨率、帧率和背景着色器。Windows ARM兼容环境未纳入这组验证。媒体检查不替代视觉审看；纯画面示例不包含原声音画同步验证。
 
 详细说明：[运行与复刻](skills/xiaoteng-opening-style-template/references/运行与复刻.md)。风格规则：[DESIGN.md](skills/xiaoteng-opening-style-template/assets/workspace/DESIGN.md)。

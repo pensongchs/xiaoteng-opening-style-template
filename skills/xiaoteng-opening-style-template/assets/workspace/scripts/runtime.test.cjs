@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const cp = require('node:child_process');
-const {platformError, concurrency, fingerprint, run} = require('./runtime.cjs');
+const {platformError, concurrency, glBackend, fingerprint, run} = require('./runtime.cjs');
 const baseline = {platform: 'darwin', release: '24.0.0', arch: 'arm64', node: '24.14.0', cpuThreads: 8, totalMemoryGB: 16, freeMemoryGB: 8};
 test('匹配组复用；系统、架构、Node主版本与任一清单变化都隔离', () => {
   const key = fingerprint('package', 'lock', baseline);
@@ -17,8 +17,15 @@ test('识别Mac双芯片与Windows x64；阻止不支持环境', () => {
   for (const arch of ['arm64', 'x64']) assert.equal(platformError({...baseline, arch}), null);
   assert.equal(platformError({...baseline, platform: 'win32', release: '10.0.26100', arch: 'x64'}), null);
   for (const info of [{node: '20.0.0'}, {release: '23.0.0'}, {platform: 'win32', release: '10.0.26100', arch: 'arm64'}]) assert.ok(platformError({...baseline, ...info}));
-  assert.equal(concurrency({...baseline, totalMemoryGB: 8}), 1);
-  assert.equal(concurrency(baseline), 2);
+  assert.equal(concurrency({...baseline, totalMemoryGB: 8}, {}), 1);
+  assert.equal(concurrency(baseline, {}), 2);
+});
+test('云端无显卡环境使用兼容渲染并限制并发；桌面保持原效果渲染', () => {
+  assert.equal(glBackend({}), 'angle');
+  assert.equal(glBackend({GITHUB_ACTIONS: 'true'}), 'swangle');
+  assert.equal(concurrency(baseline, {CI: 'true'}), 1);
+  assert.equal(glBackend({XIAOTENG_GL: 'swangle'}), 'swangle');
+  assert.throws(() => glBackend({XIAOTENG_GL: 'unknown'}));
 });
 test('中文和空格路径保留；子进程失败能传出', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), '小滕 学员 '));
